@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:key="" android:title="@string/edit_pref"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <PreferenceCategory android:title="@string/gender_pref">
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/male_pref" />
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/female_pref" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/age_pref">
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/employment_status">
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/full_time" />
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/part_time" />
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/casual_emp" />
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/student" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/dating_pref">
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/cas_dating" />
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="switch_preference_1"
+                android:title="@string/serious_dating" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+</PreferenceScreen>
