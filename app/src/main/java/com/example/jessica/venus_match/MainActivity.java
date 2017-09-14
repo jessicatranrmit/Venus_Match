@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dashboard:
+                Intent get_dashboard = new Intent(this,Dashboard.class);
+                startActivityForResult(get_dashboard, 0);
                 return true;
             case R.id.user_profile:
                 Intent get_profile = new Intent(MainActivity.this,Profile.class);

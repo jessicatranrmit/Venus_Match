@@ -75,10 +75,10 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/profile_pic_desc"
+                android:src="@drawable/default_profile_picture"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/uname"
-                app:srcCompat="@android:drawable/picture_frame"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp" />
 
