@@ -7,37 +7,21 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
 
-        <android.support.v7.widget.Toolbar
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
+            android:layout_height="match_parent"
+            app:toolbarId="@+id/toolbar"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:contentScrim="?attr/colorPrimary">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:tabIndicatorColor="#DC143C"
-            app:tabMode="scrollable">
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_1" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_2" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_3" />
-        </android.support.design.widget.TabLayout>
+            <include
+                layout="@layout/toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -149,11 +133,12 @@
                 android:id="@+id/edit_pref"
                 android:layout_width="184dp"
                 android:layout_height="47dp"
-                android:text="@string/edit_pref"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="343dp"
+                android:onClick="edit_preference"
+                android:text="@string/edit_pref"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="343dp"
                 tools:layout_editor_absoluteY="346dp" />
 
         </android.support.constraint.ConstraintLayout>

@@ -5,9 +5,20 @@
     tools:context="info.androidhive.settings.MainActivity">
 
     <item
+        android:id="@+id/dashboard"
+        android:title="@string/dashboard"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/user_profile"
+        android:title="@string/user_profile"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/messages"
+        android:title="@string/messages"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:title="@string/settings"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>
 

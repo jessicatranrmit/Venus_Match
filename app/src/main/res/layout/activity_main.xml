@@ -8,23 +8,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.jessica.venus_match.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!-- Load the toolbar here -->
+    <include
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="com.example.jessica.venus_match.MainActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/activity_main" />
+        android:layout_height="wrap_content" />
 
 </android.support.design.widget.CoordinatorLayout>

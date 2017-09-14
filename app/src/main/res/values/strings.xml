@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">VenusMatch</string>
-    <string name="tab_1">Home</string>
-    <string name="tab_2">Messages</string>
-    <string name="tab_3">Profile</string>
+    <string name="dashboard">Home</string>
+    <string name="messages">Messages</string>
+    <string name="user_profile">Profile</string>
     <string name="profile_pic_desc">Profile picture</string>
     <string name="upload_pic_desc">Upload picture</string>
     <string name="about_label">About Me</string>
@@ -30,6 +30,7 @@
     <string name="serious_dating">Serious</string>
     <string name="edit_pref">Edit preferences</string>
     <string name="title_activity_preference">Settings</string>
+    <string name="location">I am looking for someone who lives in:</string>
 
     <!-- Strings related to Settings -->
     <string name="settings">Settings</string>

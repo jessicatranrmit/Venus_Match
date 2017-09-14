@@ -10,38 +10,23 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_height="?attr/actionBarSize"
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
+            android:layout_height="match_parent"
+            app:toolbarId="@+id/toolbar"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:contentScrim="?attr/colorPrimary">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:tabMode="scrollable">
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_1" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_2" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_3" />
-        </android.support.design.widget.TabLayout>
+            <include
+                layout="@layout/toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="402dp"
+        android:layout_height="match_parent"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.constraint.ConstraintLayout
@@ -89,13 +74,13 @@
                 android:layout_height="173dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:contentDescription="@string/profile_pic_desc"
-                app:layout_constraintHorizontal_bias="0.52"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/uname"
+                app:srcCompat="@android:drawable/picture_frame"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/picture_frame" />
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/age"
@@ -133,5 +118,4 @@
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
-
 </android.support.design.widget.CoordinatorLayout>
