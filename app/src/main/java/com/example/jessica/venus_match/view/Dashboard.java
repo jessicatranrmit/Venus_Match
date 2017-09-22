@@ -1,4 +1,4 @@
-package com.example.jessica.venus_match;
+package com.example.jessica.venus_match.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+
+import com.example.jessica.venus_match.R;
 
 public class Dashboard extends AppCompatActivity {
 

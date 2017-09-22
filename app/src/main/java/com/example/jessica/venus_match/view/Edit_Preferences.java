@@ -1,8 +1,10 @@
-package com.example.jessica.venus_match;
+package com.example.jessica.venus_match.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.jessica.venus_match.R;
 
 public class Edit_Preferences extends AppCompatActivity {
 

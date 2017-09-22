@@ -32,7 +32,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.jessica.venus_match.Profile">
+            tools:context="com.example.jessica.venus_match.view.Profile">
 
             <ImageView
                 android:id="@+id/profile_pic"
@@ -43,11 +43,11 @@
                 android:src="@drawable/default_profile_picture"
                 app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/uname"
+                app:layout_constraintRight_toLeftOf="@+id/username"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/uname"
+                android:id="@+id/username"
                 android:layout_width="186dp"
                 android:layout_height="39dp"
                 android:layout_marginLeft="178dp"
@@ -63,24 +63,24 @@
                 android:layout_height="34dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="69dp"
+                android:layout_marginTop="67dp"
                 android:text="26"
-                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintHorizontal_bias="0.515"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/upload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="178dp"
+                android:layout_width="39dp"
+                android:layout_height="38dp"
+                android:layout_marginLeft="173dp"
                 android:layout_marginStart="178dp"
-                android:layout_marginTop="157dp"
+                android:layout_marginTop="158dp"
                 android:contentDescription="@string/upload_pic_desc"
+                android:src="@drawable/ic_upload"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_upload" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/about_label"

@@ -31,6 +31,9 @@
     <string name="edit_pref">Edit preferences</string>
     <string name="title_activity_preference">Settings</string>
     <string name="location">I am looking for someone who lives in:</string>
+    <string name="create_acc">Create new account</string>
+    <string name="acc_exists">Already got an account? Login</string>
+    <string name="logout">Logout</string>
 
     <!-- Strings related to Settings -->
     <string name="settings">Settings</string>

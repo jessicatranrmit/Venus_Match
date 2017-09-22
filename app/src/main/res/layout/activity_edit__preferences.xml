@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jessica.venus_match.Edit_Preferences">
+    tools:context="com.example.jessica.venus_match.view.Edit_Preferences">
 
     <!--- Gender preference -->
     <TextView
