@@ -49,34 +49,36 @@ public class Profile extends AppCompatActivity {
         HashMap<String, String> user = session.getUserDetails();
         String username = user.get(SessionManager.KEY_NAME);
         String email = user.get(SessionManager.KEY_EMAIL);
+        String getLocation = user.get(SessionManager.KEY_LOCATION);
+        String getGender = user.get(SessionManager.KEY_GENDER);
+        String birthday = user.get(SessionManager.KEY_AGE);
+        int age = Integer.parseInt(birthday);
 
         /** Get login intent */
-        Intent intent = getIntent();
-        String uname = intent.getStringExtra("username");
-        String getLocation = intent.getStringExtra("location");
-        String getProfilePic = intent.getStringExtra("profilePicPath");
-        String getGender = intent.getStringExtra("gender");
-        int birthday = intent.getIntExtra("age", -1);
+        //Intent intent = getIntent();
+        //String uname = intent.getStringExtra("username");
+        //String getLocation = intent.getStringExtra("location");
+        //String getProfilePic = intent.getStringExtra("profilePicPath");
+        //String getGender = intent.getStringExtra("gender");
+        //int birthday = intent.getIntExtra("age", -1);
 
-        if(birthday == 0) {
+        if(age == 0) {
             TextView tvusername = (TextView) findViewById(R.id.username);
             TextView location = (TextView) findViewById(R.id.location);
             TextView tvgender = (TextView) findViewById(R.id.gender);
             //ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
 
-            tvusername.setText(uname);
+            tvusername.setText(username);
             location.setText(getLocation);
             tvgender.setText(getGender);
         } else {
-            int age = intent.getIntExtra("age", -1);
-
             TextView tvusername = (TextView) findViewById(R.id.username);
             TextView tvage = (TextView) findViewById(R.id.age);
             TextView location = (TextView) findViewById(R.id.location);
             TextView tvgender = (TextView) findViewById(R.id.gender);
 
-            tvusername.setText(uname);
-            tvage.setText(age + "");
+            tvusername.setText(username);
+            tvage.setText(birthday);
             location.setText(getLocation);
             tvgender.setText(getGender);
         }

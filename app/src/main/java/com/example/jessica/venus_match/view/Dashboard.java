@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 
+import com.example.jessica.venus_match.Profiles;
+import com.example.jessica.venus_match.ProfilesAdapter;
 import com.example.jessica.venus_match.R;
 
 public class Dashboard extends AppCompatActivity {
@@ -17,13 +19,15 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        GridView gridView = (GridView) findViewById(R.id.gridview);
+        ProfilesAdapter profilesAdapter = new ProfilesAdapter(this, profiles);
+        gridView.setAdapter(profilesAdapter);
+
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
-
-        GridView gridView = (GridView)findViewById(R.id.gridview);
 
         /** Get "get_dashboard" intent */
         Intent get_dashboard = getIntent();
@@ -56,4 +60,8 @@ public class Dashboard extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private Profiles[] profiles = {
+            new Profiles("john")
+    };
 }

@@ -27,6 +27,9 @@ public class SessionManager {
     private static final String PREF_NAME = "VenusMatchPreferences";
     public static final String KEY_NAME = "username";
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_LOCATION = "location";
+    public static final String KEY_GENDER = "gender";
+    public static final String KEY_AGE = "age" ;
     public static final String HAS_ACTIVATED = "hasActivated";
 
     public SessionManager(Context context) {
@@ -39,10 +42,13 @@ public class SessionManager {
      * create a login session for the current logged in user
      **/
 
-    public void createLoginSession(String name, String email) {
+    public void createLoginSession(String name, String email, String location, String gender, String age) {
         editor.putBoolean(IS_LOGGED_IN, true);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_NAME, name);
+        editor.putString(KEY_LOCATION, location);
+        editor.putString(KEY_GENDER, gender);
+        editor.putString(KEY_AGE, age);
         editor.putBoolean(HAS_ACTIVATED, false);
         editor.commit();
     }
@@ -54,6 +60,9 @@ public class SessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(KEY_EMAIL, preferences.getString(KEY_EMAIL, null));
         user.put(KEY_NAME, preferences.getString(KEY_NAME, null));
+        user.put(KEY_LOCATION, preferences.getString(KEY_LOCATION, null));
+        user.put(KEY_GENDER, preferences.getString(KEY_GENDER, null));
+        user.put(KEY_AGE, preferences.getString(KEY_AGE, null));
 
         return user;
     }

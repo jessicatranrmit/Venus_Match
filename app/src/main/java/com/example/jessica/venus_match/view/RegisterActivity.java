@@ -76,7 +76,11 @@ public class RegisterActivity extends Activity {
                         boolean success = jsonResponse.getBoolean("success");
 
                         if(success){
-                            session.createLoginSession(jsonResponse.getString("username"), jsonResponse.getString("email"));
+                            int birthday = jsonResponse.optInt("age", 0);
+                            String age = Integer.toString(birthday);
+                            session.createLoginSession(jsonResponse.getString("username"), jsonResponse.getString("email"),
+                                    jsonResponse.getString("location"), jsonResponse.getString("gender"),
+                                    age);
                             Intent intent = new Intent(getApplicationContext(), Profile.class);
                             intent.putExtra("email", jsonResponse.getString("email"));
                             startActivity(intent);

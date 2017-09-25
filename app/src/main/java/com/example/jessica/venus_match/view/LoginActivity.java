@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.sql.Connection;
 
+import static java.sql.Types.INTEGER;
 import static java.sql.Types.NULL;
 
 
@@ -70,41 +71,27 @@ public class LoginActivity extends Activity {
                         boolean success = jsonResponse.getBoolean("success");
 
                         if (success) {
-                            session.createLoginSession(jsonResponse.getString("username"), jsonResponse.getString("email"));
-                            if (session.checkActivationStatus()) {
+                            int birthday = jsonResponse.optInt("age", 0);
+                            String age = Integer.toString(birthday);
+                            session.createLoginSession(jsonResponse.getString("username"), jsonResponse.getString("email"),
+                                    jsonResponse.getString("location"), jsonResponse.getString("gender"),
+                                    age);
+
+                            if(session.checkActivationStatus())
+                            {
                                 Intent intent = new Intent(LoginActivity.this, ActivationActivity.class);
                                 //intent.putExtra("email", jsonResponse.getString("email"));
                                 startActivity(intent);
                                 finish();
-                            } else {
-                                String uname = jsonResponse.getString("username");
-                                String location = jsonResponse.getString("location");
-                                String profilePic = jsonResponse.getString("profilePicPath");
-                                String gender = jsonResponse.getString("gender");
-                                int birthday = jsonResponse.optInt("age", 0);
-                                if (birthday == 0) {
-                                    Intent intent = new Intent(LoginActivity.this, Profile.class);
-                                    intent.putExtra("email", jsonResponse.getString("email"));
-                                    intent.putExtra("username", uname);
-                                    intent.putExtra("age", birthday);
-                                    intent.putExtra("location", location);
-                                    intent.putExtra("profilePicPath", profilePic);
-                                    intent.putExtra("gender", gender);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    int age = jsonResponse.getInt("age");
-                                    Intent intent = new Intent(LoginActivity.this, Profile.class);
-                                    intent.putExtra("email", jsonResponse.getString("email"));
-                                    intent.putExtra("username", uname);
-                                    intent.putExtra("age", age);
-                                    intent.putExtra("location", location);
-                                    intent.putExtra("profilePicPath", profilePic);
-                                    intent.putExtra("gender", gender);
-                                    startActivity(intent);
-                                    finish();
-                                }
                             }
+                            else
+                            {
+                                Intent intent = new Intent(LoginActivity.this, Profile.class);
+                                intent.putExtra("email", jsonResponse.getString("email"));
+                                startActivity(intent);
+                                finish();
+                            }
+
 
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
