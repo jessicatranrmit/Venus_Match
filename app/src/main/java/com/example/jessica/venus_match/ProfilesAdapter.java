@@ -4,12 +4,16 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.android.volley.toolbox.NetworkImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Jessica on 25/09/2017.
@@ -17,34 +21,42 @@ import org.json.JSONObject;
 
 public class ProfilesAdapter extends BaseAdapter {
 
-    private final Context mContext;
-    private final Profiles[] profiles;
+    private final Context context;
 
-    public ProfilesAdapter(Context mContext, Profiles[] profiles) {
+    private ArrayList<String> usernames;
 
-        this.mContext = mContext;
-        this.profiles = profiles;
+    public ProfilesAdapter(Context context, ArrayList<String> usernames) {
+        this.context = context;
+        this.usernames = usernames;
     }
 
     @Override
     public int getCount() {
-        return profiles.length;
+        return usernames.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return usernames.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView dummyTextView = new TextView(mContext);
-        dummyTextView.setText(String.valueOf(position));
-        return dummyTextView;
+        LinearLayout linearLayout = new LinearLayout(context);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        NetworkImageView networkImageView = new NetworkImageView(context);
+
+        TextView textView = new TextView(context);
+        textView.setText(usernames.get(position));
+
+        linearLayout.addView(textView);
+
+        return linearLayout;
     }
 }
