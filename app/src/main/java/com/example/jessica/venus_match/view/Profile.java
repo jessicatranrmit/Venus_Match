@@ -67,33 +67,21 @@ public class Profile extends AppCompatActivity {
         //String getGender = intent.getStringExtra("gender");
         //int birthday = intent.getIntExtra("age", -1);
 
-        if(age == 0) {
-            TextView tvusername = (TextView) findViewById(R.id.username);
-            TextView location = (TextView) findViewById(R.id.location);
-            TextView tvgender = (TextView) findViewById(R.id.gender);
-            ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
-            TextView aboutText = (TextView) findViewById(R.id.about);
-            new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
-                    +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
-            tvusername.setText(username);
-            location.setText(getLocation);
-            tvgender.setText(getGender);
-            aboutText.setText(user.get(SessionManager.KEY_ABOUT));
-        } else {
-            TextView tvusername = (TextView) findViewById(R.id.username);
+        if(age != 0) {
             TextView tvage = (TextView) findViewById(R.id.age);
-            TextView location = (TextView) findViewById(R.id.location);
-            TextView tvgender = (TextView) findViewById(R.id.gender);
-            TextView aboutText = (TextView) findViewById(R.id.about);
-            ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
-            new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
-                    +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
-            tvusername.setText(username);
             tvage.setText(birthday);
-            location.setText(getLocation);
-            tvgender.setText(getGender);
-            aboutText.setText(user.get(SessionManager.KEY_ABOUT));
         }
+        TextView tvusername = (TextView) findViewById(R.id.username);
+        TextView location = (TextView) findViewById(R.id.location);
+        TextView tvgender = (TextView) findViewById(R.id.gender);
+        ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
+        TextView aboutText = (TextView) findViewById(R.id.about);
+        new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
+                +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
+        tvusername.setText(username);
+        location.setText(getLocation);
+        tvgender.setText(getGender);
+        aboutText.setText(user.get(SessionManager.KEY_ABOUT));
     }
 
     // Menu icons are inflated just as they were with actionbar
