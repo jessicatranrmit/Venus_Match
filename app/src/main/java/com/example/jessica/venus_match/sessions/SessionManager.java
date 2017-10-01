@@ -30,7 +30,10 @@ public class SessionManager {
     public static final String KEY_LOCATION = "location";
     public static final String KEY_GENDER = "gender";
     public static final String KEY_AGE = "age" ;
+    public static final String KEY_IMAGE_FILE_NAME = "image" ;
     public static final String HAS_ACTIVATED = "hasActivated";
+    public static final String KEY_ABOUT = "about";
+    public static final String KEY_ID = "id";
 
     public SessionManager(Context context) {
         this.context = context;
@@ -42,14 +45,18 @@ public class SessionManager {
      * create a login session for the current logged in user
      **/
 
-    public void createLoginSession(String name, String email, String location, String gender, String age) {
+    public void createLoginSession(String name, String email, String location, String gender, String age,
+                                   String imageFile, String about, String id) {
         editor.putBoolean(IS_LOGGED_IN, true);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_LOCATION, location);
         editor.putString(KEY_GENDER, gender);
         editor.putString(KEY_AGE, age);
+        editor.putString(KEY_IMAGE_FILE_NAME, imageFile);
         editor.putBoolean(HAS_ACTIVATED, false);
+        editor.putString(KEY_ABOUT,about);
+        editor.putString(KEY_ID,id);
         editor.commit();
     }
 
@@ -63,7 +70,9 @@ public class SessionManager {
         user.put(KEY_LOCATION, preferences.getString(KEY_LOCATION, null));
         user.put(KEY_GENDER, preferences.getString(KEY_GENDER, null));
         user.put(KEY_AGE, preferences.getString(KEY_AGE, null));
-
+        user.put(KEY_IMAGE_FILE_NAME,  preferences.getString(KEY_IMAGE_FILE_NAME, null));
+        user.put(KEY_ABOUT,  preferences.getString(KEY_ABOUT, null));
+        user.put(KEY_ID,  preferences.getString(KEY_ID, null));
         return user;
     }
 

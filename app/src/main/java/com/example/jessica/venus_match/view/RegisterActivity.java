@@ -80,7 +80,8 @@ public class RegisterActivity extends Activity {
                             String age = Integer.toString(birthday);
                             session.createLoginSession(jsonResponse.getString("username"), jsonResponse.getString("email"),
                                     jsonResponse.getString("location"), jsonResponse.getString("gender"),
-                                    age);
+                                    age, jsonResponse.getString("image_filename"), jsonResponse.getString("about"),
+                                    jsonResponse.getString("user_id"));
                             Intent intent = new Intent(getApplicationContext(), Profile.class);
                             intent.putExtra("email", jsonResponse.getString("email"));
                             startActivity(intent);
@@ -92,7 +93,6 @@ public class RegisterActivity extends Activity {
                         }
                         else
                         {
-                            System.out.println("not success!");
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                             builder.setMessage(jsonResponse.getString("error_msg"))
                                     .setNegativeButton("Retry", null)

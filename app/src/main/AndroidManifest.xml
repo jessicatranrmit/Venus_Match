@@ -26,13 +26,12 @@
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".view.Edit_Preferences" />
-        <activity android:name=".view.Dashboard"></activity>
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.DashboardActivity" />
         <activity android:name="view.ActivationActivity" />
+        <activity android:name=".view.ShowProfileActivity" />
     </application>
 
 </manifest>

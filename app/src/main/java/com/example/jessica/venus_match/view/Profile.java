@@ -2,6 +2,9 @@ package com.example.jessica.venus_match.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +17,14 @@ import android.widget.TextView;
 import com.example.jessica.venus_match.*;
 import com.example.jessica.venus_match.sessions.SessionManager;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 
 public class Profile extends AppCompatActivity {
 
     SessionManager session;
+    HashMap<String, String> user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class Profile extends AppCompatActivity {
         Intent get_profile = getIntent();
 
         session.checkLoginStatus();
-        HashMap<String, String> user = session.getUserDetails();
+        user = session.getUserDetails();
         String username = user.get(SessionManager.KEY_NAME);
         String email = user.get(SessionManager.KEY_EMAIL);
         String getLocation = user.get(SessionManager.KEY_LOCATION);
@@ -66,21 +71,28 @@ public class Profile extends AppCompatActivity {
             TextView tvusername = (TextView) findViewById(R.id.username);
             TextView location = (TextView) findViewById(R.id.location);
             TextView tvgender = (TextView) findViewById(R.id.gender);
-            //ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
-
+            ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
+            TextView aboutText = (TextView) findViewById(R.id.about);
+            new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
+                    +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
             tvusername.setText(username);
             location.setText(getLocation);
             tvgender.setText(getGender);
+            aboutText.setText(user.get(SessionManager.KEY_ABOUT));
         } else {
             TextView tvusername = (TextView) findViewById(R.id.username);
             TextView tvage = (TextView) findViewById(R.id.age);
             TextView location = (TextView) findViewById(R.id.location);
             TextView tvgender = (TextView) findViewById(R.id.gender);
-
+            TextView aboutText = (TextView) findViewById(R.id.about);
+            ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
+            new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
+                    +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
             tvusername.setText(username);
             tvage.setText(birthday);
             location.setText(getLocation);
             tvgender.setText(getGender);
+            aboutText.setText(user.get(SessionManager.KEY_ABOUT));
         }
     }
 
@@ -96,7 +108,7 @@ public class Profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dashboard:
-                Intent get_dashboard = new Intent(this,Dashboard.class);
+                Intent get_dashboard = new Intent(this,DashboardActivity.class);
                 startActivityForResult(get_dashboard, 0);
                 return true;
             case R.id.user_profile:
@@ -106,6 +118,10 @@ public class Profile extends AppCompatActivity {
             case R.id.messages:
                 return true;
             case R.id.action_settings:
+                return true;
+            case R.id.sign_out:
+                session.logout();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -138,5 +154,36 @@ public class Profile extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        private ImageView bmImage;
+
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+
+        }
+        protected Bitmap doInBackground(String... urls) {
+
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            //set image of your imageview
+            bmImage.setImageBitmap(result);
+
+
+        }
     }
 }

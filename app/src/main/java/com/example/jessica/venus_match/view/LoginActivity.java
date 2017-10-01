@@ -75,9 +75,10 @@ public class LoginActivity extends Activity {
                             String age = Integer.toString(birthday);
                             session.createLoginSession(jsonResponse.getString("username"), jsonResponse.getString("email"),
                                     jsonResponse.getString("location"), jsonResponse.getString("gender"),
-                                    age);
+                                    age, jsonResponse.getString("image_filename"), jsonResponse.getString("about"),
+                                    jsonResponse.getString("user_id"));
 
-                            if(session.checkActivationStatus())
+                            if(jsonResponse.getInt("has_activated") == 0)
                             {
                                 Intent intent = new Intent(LoginActivity.this, ActivationActivity.class);
                                 //intent.putExtra("email", jsonResponse.getString("email"));
