@@ -1,9 +1,12 @@
 package com.example.jessica.venus_match.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,26 +17,69 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.example.jessica.venus_match.R;
+import com.example.jessica.venus_match.requests.EditProfileRequest;
+import com.example.jessica.venus_match.sessions.SessionManager;
 
-import static com.example.jessica.venus_match.R.id.about_desc;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.HashMap;
 
 public class Edit_Profile extends AppCompatActivity {
 
-    public static final String ABOUT_DESC = "";
     private static int RESULT_LOAD_IMAGE = 1;
+    EditText update_about_desc;
+    EditText update_username;
+
+    SessionManager session;
+    HashMap<String, String> user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        session = new SessionManager(getApplicationContext());
+
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+
+        /*Get user details*/
+        session.checkLoginStatus();
+        user = session.getUserDetails();
+        String username = user.get(SessionManager.KEY_NAME);
+        String getLocation = user.get(SessionManager.KEY_LOCATION);
+        String getGender = user.get(SessionManager.KEY_GENDER);
+
+        TextView aboutText = (TextView) findViewById(R.id.about_desc);
+        TextView tvusername = (TextView) findViewById(R.id.username);
+
+        //Spinner location = (Spinner) findViewById(R.id.country_picker);
+        //TextView tvgender = (TextView) findViewById(R.id.gender);
+        ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
+        new Edit_Profile.DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
+                +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
+
+        tvusername.setText(username);
+
+        if(aboutText!=null) {
+            aboutText.setText(user.get(SessionManager.KEY_ABOUT));
+        }
+        //location.setText(getLocation);
+
+        //tvgender.setText(getGender);
 
         ImageButton upload = (ImageButton) findViewById(R.id.upload);
         upload.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +99,32 @@ public class Edit_Profile extends AppCompatActivity {
         Intent edit_intent = getIntent();
     }
 
+    public void update_profile(View view){
+        final ProgressDialog loading = ProgressDialog.show(this, "Please wait...",
+                "Updating profile...", false, false);
+        update_about_desc = (EditText) findViewById(R.id.about_desc);
+        update_username = (EditText) findViewById(R.id.username);
+        final String update_about = update_about_desc.getText().toString();
+        final String edit_username = update_username.getText().toString();
+
+        // Response received from the server
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("Update success");
+                loading.dismiss();
+                Intent intent = new Intent(Edit_Profile.this, ProfileActivity.class);
+                Toast.makeText(getApplicationContext(), "Update profile successful!", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        EditProfileRequest editProfileRequest = new EditProfileRequest(user.get(SessionManager.KEY_ID), update_about, edit_username, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(Edit_Profile.this);
+        queue.add(editProfileRequest);
+    }
+
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,31 +141,12 @@ public class Edit_Profile extends AppCompatActivity {
                 startActivityForResult(get_dashboard, 0);
                 return true;
             case R.id.user_profile:
-                Intent get_profile = new Intent(this,Profile.class);
+                Intent get_profile = new Intent(this,ProfileActivity.class);
                 startActivityForResult(get_profile, 1);
-                return true;
-            case R.id.messages:
-                return true;
-            case R.id.action_settings:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    /** Save profile */
-    public void save_profile(View view) {
-        Intent save_intent = new Intent(this, Profile.class);
-        EditText edit_about = (EditText) findViewById(about_desc);
-        String about_message = edit_about.getText().toString();
-        save_intent.putExtra(ABOUT_DESC, about_message);
-        startActivity(save_intent);
-    }
-
-    /** Edit preferences */
-    public void edit_preference(View view) {
-        Intent preference_intent = new Intent(this, Edit_Preferences.class);
-        startActivity(preference_intent);
     }
 
     @Override
@@ -114,6 +167,37 @@ public class Edit_Profile extends AppCompatActivity {
 
             ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
             profile_pic.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+        }
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        private ImageView bmImage;
+
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+
+        }
+        protected Bitmap doInBackground(String... urls) {
+
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            //set image of your imageview
+            bmImage.setImageBitmap(result);
+
 
         }
     }

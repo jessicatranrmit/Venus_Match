@@ -8,10 +8,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.WelcomeActivity">
+        <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,15 +21,13 @@
             android:name=".view.Edit_Profile"
             android:label="@string/app_name" />
         <activity
-            android:name=".view.Profile"
+            android:name=".view.ProfileActivity"
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".view.Edit_Preferences" />
         <activity android:name=".view.RegisterActivity" />
-        <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.DashboardActivity" />
-        <activity android:name="view.ActivationActivity" />
+        <activity android:name=".view.ActivationActivity" />
         <activity android:name=".view.ShowProfileActivity" />
     </application>
 

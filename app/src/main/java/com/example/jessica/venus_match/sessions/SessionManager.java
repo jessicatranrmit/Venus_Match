@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.jessica.venus_match.view.Profile;
+import com.example.jessica.venus_match.view.ActivationActivity;
+import com.example.jessica.venus_match.view.LoginActivity;
+import com.example.jessica.venus_match.view.ProfileActivity;
 import com.example.jessica.venus_match.view.WelcomeActivity;
 
 import java.util.HashMap;
-
-
 
 /**
  * Created by Sintiaaa on 19/09/2017.
@@ -34,6 +34,8 @@ public class SessionManager {
     public static final String HAS_ACTIVATED = "hasActivated";
     public static final String KEY_ABOUT = "about";
     public static final String KEY_ID = "id";
+    public static final String KEY_PREFERS_MALE = "prefers_male";
+    public static final String KEY_PREFERS_FEMALE = "prefers_female";
 
     public SessionManager(Context context) {
         this.context = context;
@@ -46,7 +48,7 @@ public class SessionManager {
      **/
 
     public void createLoginSession(String name, String email, String location, String gender, String age,
-                                   String imageFile, String about, String id) {
+                                   String imageFile, String about, String id, String prefers_male, String prefers_female) {
         editor.putBoolean(IS_LOGGED_IN, true);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_NAME, name);
@@ -57,6 +59,8 @@ public class SessionManager {
         editor.putBoolean(HAS_ACTIVATED, false);
         editor.putString(KEY_ABOUT,about);
         editor.putString(KEY_ID,id);
+        editor.putString(KEY_PREFERS_MALE, prefers_male);
+        editor.putString(KEY_PREFERS_FEMALE, prefers_female);
         editor.commit();
     }
 
@@ -73,6 +77,8 @@ public class SessionManager {
         user.put(KEY_IMAGE_FILE_NAME,  preferences.getString(KEY_IMAGE_FILE_NAME, null));
         user.put(KEY_ABOUT,  preferences.getString(KEY_ABOUT, null));
         user.put(KEY_ID,  preferences.getString(KEY_ID, null));
+        user.put(KEY_PREFERS_MALE, preferences.getString(KEY_PREFERS_MALE, null));
+        user.put(KEY_PREFERS_FEMALE, preferences.getString(KEY_PREFERS_FEMALE, null));
         return user;
     }
 
@@ -84,7 +90,7 @@ public class SessionManager {
 
     public void checkLoginStatus() {
         if (!this.isLoggedIn()) {
-            Intent intent = new Intent(context, WelcomeActivity.class);
+            Intent intent = new Intent(context, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -94,13 +100,22 @@ public class SessionManager {
 
     public boolean checkLoginStatusAtLogin() {
         if (this.isLoggedIn()) {
-            Intent intent = new Intent(context, Profile.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(this.isActivated()){
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-            return true;
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                return true;
+            }
+            else {
+                Intent intent = new Intent(context, ActivationActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                return true;
+            }
         }
         return false;
     }
@@ -111,7 +126,7 @@ public class SessionManager {
     public void logout() {
         editor.clear();
         editor.commit();
-        Intent intent = new Intent(context, WelcomeActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
@@ -124,7 +139,7 @@ public class SessionManager {
     public boolean checkActivationStatus()
     {
         if (this.isActivated()) {
-            Intent intent = new Intent(context, Profile.class);
+            Intent intent = new Intent(context, ProfileActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

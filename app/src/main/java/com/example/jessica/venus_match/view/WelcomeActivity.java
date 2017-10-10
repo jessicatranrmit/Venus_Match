@@ -49,11 +49,4 @@ public class WelcomeActivity extends AppCompatActivity {
         };
         spannable.setSpan(clickableSpan,24,29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
-
-    public void register(View view)
-    {
-        Intent intent = new Intent(WelcomeActivity.this,RegisterActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

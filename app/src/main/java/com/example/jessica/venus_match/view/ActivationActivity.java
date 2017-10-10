@@ -63,8 +63,9 @@ public class ActivationActivity extends Activity {
                     if (success)
                     {
                         Toast.makeText(getApplicationContext(), "Activation successful!", Toast.LENGTH_SHORT).show();
+                        session.setActivationStatus();
                         //go to the profile page
-                        Intent intent = new Intent(ActivationActivity.this, Profile.class);
+                        Intent intent = new Intent(ActivationActivity.this, ProfileActivity.class);
                         startActivity(intent);
                         finish();
                     }

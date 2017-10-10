@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.jessica.venus_match.*;
 import com.example.jessica.venus_match.sessions.SessionManager;
 
@@ -21,7 +23,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 
-public class Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     SessionManager session;
     HashMap<String, String> user;
@@ -39,14 +41,6 @@ public class Profile extends AppCompatActivity {
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
 
-        /**Get edit profile intent */
-        Intent save_intent = getIntent();
-        String about_message = save_intent.getStringExtra(Edit_Profile.ABOUT_DESC);
-
-        /** Display about description */
-        TextView about = (TextView) findViewById(R.id.about);
-        about.setText(about_message);
-
         /** Get "get_profile" intent from menu */
         Intent get_profile = getIntent();
 
@@ -57,7 +51,11 @@ public class Profile extends AppCompatActivity {
         String getLocation = user.get(SessionManager.KEY_LOCATION);
         String getGender = user.get(SessionManager.KEY_GENDER);
         String birthday = user.get(SessionManager.KEY_AGE);
+        String prefer_male = user.get(SessionManager.KEY_PREFERS_MALE);
+        String prefer_female = user.get(SessionManager.KEY_PREFERS_FEMALE);
         int age = Integer.parseInt(birthday);
+        int pref_male = Integer.parseInt(prefer_male);
+        int pref_female = Integer.parseInt(prefer_female);
 
         /** Get login intent */
         //Intent intent = getIntent();
@@ -76,12 +74,36 @@ public class Profile extends AppCompatActivity {
         TextView tvgender = (TextView) findViewById(R.id.gender);
         ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
         TextView aboutText = (TextView) findViewById(R.id.about);
+        ImageView male = (ImageView) findViewById(R.id.imageview_male);
+        ImageView female = (ImageView) findViewById(R.id.imageview_female);
         new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"
                 +user.get(SessionManager.KEY_IMAGE_FILE_NAME));
+
+        /* Display username*/
         tvusername.setText(username);
-        location.setText(getLocation);
-        tvgender.setText(getGender);
-        aboutText.setText(user.get(SessionManager.KEY_ABOUT));
+
+        /* Display user country */
+        if(getLocation!=null) {
+            location.setText(getLocation);
+        }
+
+        /* Display user gender */
+        if(getGender!=null) {
+            tvgender.setText(getGender);
+        }
+
+        /* Display about message*/
+        if(aboutText!=null) {
+            aboutText.setText(user.get(SessionManager.KEY_ABOUT));
+        }
+
+        /* Display gender preference */
+        if(pref_male != 0) {
+            male.setImageResource(R.drawable.male);
+        }
+        if(pref_female != 0){
+            female.setImageResource(R.drawable.female);
+        }
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -98,17 +120,16 @@ public class Profile extends AppCompatActivity {
             case R.id.dashboard:
                 Intent get_dashboard = new Intent(this,DashboardActivity.class);
                 startActivityForResult(get_dashboard, 0);
+                finish();
                 return true;
             case R.id.user_profile:
-                Intent get_profile = new Intent(this,Profile.class);
+                Intent get_profile = new Intent(this,ProfileActivity.class);
                 startActivityForResult(get_profile, 1);
-                return true;
-            case R.id.messages:
-                return true;
-            case R.id.action_settings:
+                finish();
                 return true;
             case R.id.sign_out:
                 session.logout();
+                Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
             default:

@@ -18,16 +18,16 @@
 
         <ImageView
             android:id="@+id/imageview_gender"
-            android:layout_width="21dp"
-            android:layout_height="20dp"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/venus_logo" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/venus_logo"
+            android:layout_gravity="bottom|right"/>
 
     </FrameLayout>
 
     <TextView
         android:id="@+id/textview_user_name"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         tools:text="Username"

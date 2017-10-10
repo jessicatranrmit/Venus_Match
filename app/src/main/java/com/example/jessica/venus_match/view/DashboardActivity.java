@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -71,22 +71,15 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-
-                    System.out.println("in on response");
-
                     JSONArray jUsers = response.getJSONArray("users");
-
-                    System.out.println("array success");
 
                     for(int i=0; i<jUsers.length(); i++) {
                         JSONObject jsonObject = jUsers.getJSONObject(i);
 
-                        Profile profile = new Profile(jsonObject.getString("first_name"),jsonObject.getString("username"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("image_filename"),jsonObject.getString("country_name"),jsonObject.getString("about"));
+                        Profile profile = new Profile(jsonObject.getString("first_name"), jsonObject.getString("last_name"),jsonObject.getString("username"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("image_filename"),jsonObject.getString("country_name"),jsonObject.getString("about"));
                         profiles.add(profile);
-
-                        System.out.println(jsonObject.getString("user_id") + " " + jsonObject.getString("username"));
                     }
-                    System.out.println("Length: " + jUsers.length());
+
                     final DashboardAdapter dashboardAdapter = new DashboardAdapter(DashboardActivity.this,profiles);
                     gridView.setAdapter(dashboardAdapter);
 
@@ -135,18 +128,16 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.dashboard:
                 Intent get_dashboard = new Intent(this, DashboardActivity.class);
                 startActivityForResult(get_dashboard, 0);
+                finish();
                 return true;
             case R.id.user_profile:
-                Intent get_profile = new Intent(this, com.example.jessica.venus_match.view.Profile.class);
+                Intent get_profile = new Intent(this, com.example.jessica.venus_match.view.ProfileActivity.class);
                 startActivityForResult(get_profile, 1);
                 finish();
                 return true;
-            case R.id.messages:
-                return true;
-            case R.id.action_settings:
-                return true;
             case R.id.sign_out:
                 session.logout();
+                Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
             default:

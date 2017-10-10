@@ -45,11 +45,11 @@ public class ShowProfileActivity extends Activity {
 
         /**Get edit profile intent */
         Intent save_intent = getIntent();
-        String about_message = save_intent.getStringExtra(Edit_Profile.ABOUT_DESC);
+        //String about_message = save_intent.getStringExtra(Edit_Profile.update_about_desc);
 
         /** Display about description */
         TextView about = (TextView) findViewById(R.id.about);
-        about.setText(about_message);
+        //about.setText(about_message);
 
         /** Get "get_profile" intent from menu */
         Intent get_profile = getIntent();
@@ -68,13 +68,20 @@ public class ShowProfileActivity extends Activity {
         TextView aboutText = (TextView) findViewById(R.id.about);
         ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
         new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"+selectedUser.getImageID());
-
+        int birthday = Integer.parseInt(age);
         tvusername.setText(username);
-        tvage.setText(age);
-        location.setText(getLocation);
-        tvgender.setText(getGender);
-        aboutText.setText(selectedUser.getAbout());
-
+        if(age!=null) {
+            tvage.setText(age);
+        }
+        if(getLocation!=null) {
+            location.setText(getLocation);
+        }
+        if(getGender!=null) {
+            tvgender.setText(getGender);
+        }
+        if(aboutText!=null) {
+            aboutText.setText(selectedUser.getAbout());
+        }
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -103,8 +110,6 @@ public class ShowProfileActivity extends Activity {
         protected void onPostExecute(Bitmap result) {
             //set image of your imageview
             bmImage.setImageBitmap(result);
-
-
         }
     }
 }

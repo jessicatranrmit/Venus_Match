@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 public class Profile implements Serializable{
 
-    private String name;
+    private String first_name;
+    private String last_name;
     private String username;
     private String age;
     private String gender;
@@ -16,9 +17,10 @@ public class Profile implements Serializable{
     private String country;
     private String about;
 
-    public Profile(String name, String username, String age, String gender, String imageID, String country, String about)
+    public Profile(String first_name, String last_name, String username, String age, String gender, String imageID, String country, String about)
     {
-        this.name = name;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.username = username;
         this.age = age;
         this.gender = gender;
@@ -32,9 +34,14 @@ public class Profile implements Serializable{
         return age;
     }
 
-    public String getName()
+    public String getFirstName()
     {
-        return name;
+        return first_name;
+    }
+
+    public String getLastName()
+    {
+        return last_name;
     }
 
     public String getUsername()

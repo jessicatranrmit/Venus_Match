@@ -16,7 +16,7 @@ import com.example.jessica.venus_match.model.Profile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-//import model.Profile;
+import java.util.Locale;
 
 /**
  * Created by Sintiaaa on 28/09/2017.
@@ -26,7 +26,7 @@ public class DashboardAdapter extends BaseAdapter {
 
     private final Context mContext;
     private final ArrayList<Profile> profiles;
-
+    private Locale filter;
 
     public DashboardAdapter(Context context, ArrayList<Profile> profiles) {
         this.mContext = context;
@@ -52,6 +52,7 @@ public class DashboardAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         final Profile profile = profiles.get(i);
+
         if (view == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             view = layoutInflater.inflate(R.layout.layout_profiles, null);
@@ -63,9 +64,19 @@ public class DashboardAdapter extends BaseAdapter {
         final TextView age = (TextView) view.findViewById(R.id.textview_user_age);
         ImageView profile_pic = (ImageView) view.findViewById(R.id.imageview_profile_pic);
 
-        country.setText(profile.getCountry());
-        age.setText(profile.getAge());
+        if(profile.getCountry() !=null)
+        {
+
+            country.setText(profile.getCountry());
+        }
+
+        if(profile.getAge()!=null)
+        {
+            age.setText(profile.getAge());
+        }
+
         username.setText(profile.getUsername());
+
         if(profile.getGender().equals("Male"))
         {
             gender.setImageResource(R.drawable.male);
@@ -82,9 +93,11 @@ public class DashboardAdapter extends BaseAdapter {
 
         new DownloadImageTask(profile_pic, view).execute("http://54.66.210.220/venusmatch/images/profiles/"+profile.getImageID());
 
-
         return view;
+    }
 
+    public Locale getFilter() {
+        return filter;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -113,8 +126,6 @@ public class DashboardAdapter extends BaseAdapter {
         protected void onPostExecute(Bitmap result) {
             //set image of your imageview
             bmImage.setImageBitmap(result);
-
-
         }
     }
 }

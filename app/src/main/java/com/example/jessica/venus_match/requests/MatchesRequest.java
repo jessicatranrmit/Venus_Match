@@ -22,7 +22,7 @@ import java.util.Map;
 public class MatchesRequest extends Request<JSONObject> {
 
     //URL to the php file
-    private static final String MATCHES_REQUEST_URL = "http://10.0.0.130/venusmatchrequests/index.php";
+    private static final String MATCHES_REQUEST_URL = "http://10.132.67.150/venusmatchrequests/index.php";
     private Map<String, String> params;
     private Response.Listener<JSONObject> listener;
 
