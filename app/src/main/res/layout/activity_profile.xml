@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="316dp"
-                android:background="@drawable/edit_button"
+                android:background="@drawable/button"
                 android:textColor="#d74241"
                 android:onClick="edit_profile"
                 android:text="@string/edit_btn"

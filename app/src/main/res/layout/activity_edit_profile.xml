@@ -57,18 +57,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginStart="178dp" />
 
-            <ImageButton
-                android:id="@+id/upload"
-                android:layout_width="39dp"
-                android:layout_height="38dp"
-                android:layout_marginLeft="122dp"
-                android:layout_marginTop="151dp"
-                android:contentDescription="@string/upload_pic_desc"
-                android:src="@drawable/ic_upload"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="122dp" />
-
             <TextView
                 android:id="@+id/about_label"
                 android:layout_width="94dp"
@@ -113,8 +101,23 @@
                 android:layout_marginRight="16dp"
                 android:onClick="update_profile"
                 android:text="@string/save_btn"
+                android:background="@drawable/button"
+                android:textColor="#d74241"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                android:onClick="cancel_update"
+                android:text="@string/cancel_btn"
+                android:background="@drawable/button"
+                android:textColor="#d74241"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="424dp" />
 
             <TextView
                 android:id="@+id/username_label"
@@ -127,49 +130,6 @@
                 android:layout_marginLeft="178dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginStart="178dp" />
-
-            <TextView
-                android:id="@+id/gender_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gender_label"
-                android:textStyle="bold"
-                android:layout_marginLeft="180dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="86dp"
-                android:layout_marginStart="178dp" />
-
-            <Spinner
-                android:id="@+id/gender_picker"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="180dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="103dp"
-                android:layout_marginStart="178dp" />
-
-            <TextView
-                android:id="@+id/country_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/country_label"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="185dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="141dp"
-                android:layout_marginStart="178dp" />
-
-            <Spinner
-                android:id="@+id/country_picker"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="165dp"
-                android:layout_marginLeft="180dp"
-                app:layout_constraintLeft_toLeftOf="parent" />
 
             <!--- Male switch -->
             <Switch

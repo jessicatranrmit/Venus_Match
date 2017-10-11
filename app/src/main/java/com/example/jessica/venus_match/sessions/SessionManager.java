@@ -64,6 +64,15 @@ public class SessionManager {
         editor.commit();
     }
 
+    /* Update session for the current logged in user */
+    public void updateSession(String about, String name, String prefers_male, String prefers_female) {
+        editor.putString(KEY_ABOUT, about);
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_PREFERS_MALE, prefers_male);
+        editor.putString(KEY_PREFERS_FEMALE, prefers_female);
+        editor.commit();
+    }
+
     /**
      * return the stored session data
      **/

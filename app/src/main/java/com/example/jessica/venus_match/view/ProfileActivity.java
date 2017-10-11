@@ -44,10 +44,10 @@ public class ProfileActivity extends AppCompatActivity {
         /** Get "get_profile" intent from menu */
         Intent get_profile = getIntent();
 
+        /* Get user details */
         session.checkLoginStatus();
         user = session.getUserDetails();
         String username = user.get(SessionManager.KEY_NAME);
-        String email = user.get(SessionManager.KEY_EMAIL);
         String getLocation = user.get(SessionManager.KEY_LOCATION);
         String getGender = user.get(SessionManager.KEY_GENDER);
         String birthday = user.get(SessionManager.KEY_AGE);
@@ -57,14 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         int pref_male = Integer.parseInt(prefer_male);
         int pref_female = Integer.parseInt(prefer_female);
 
-        /** Get login intent */
-        //Intent intent = getIntent();
-        //String uname = intent.getStringExtra("username");
-        //String getLocation = intent.getStringExtra("location");
-        //String getProfilePic = intent.getStringExtra("profilePicPath");
-        //String getGender = intent.getStringExtra("gender");
-        //int birthday = intent.getIntExtra("age", -1);
-
+        /* Set and display age */
         if(age != 0) {
             TextView tvage = (TextView) findViewById(R.id.age);
             tvage.setText(birthday);
@@ -96,6 +89,9 @@ public class ProfileActivity extends AppCompatActivity {
         if(aboutText!=null) {
             aboutText.setText(user.get(SessionManager.KEY_ABOUT));
         }
+        else {
+            aboutText.setText("");
+        }
 
         /* Display gender preference */
         if(pref_male != 0) {
@@ -114,6 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
+    /* Menu items */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -143,12 +140,6 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(edit_intent);
     }
 
-    public void logout(View view)
-    {
-        session.logout();
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
@@ -169,10 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         private ImageView bmImage;
 
-
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
-
         }
         protected Bitmap doInBackground(String... urls) {
 
@@ -191,8 +180,6 @@ public class ProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             //set image of your imageview
             bmImage.setImageBitmap(result);
-
-
         }
     }
 }

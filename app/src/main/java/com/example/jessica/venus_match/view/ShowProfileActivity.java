@@ -7,8 +7,11 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jessica.venus_match.R;
 import com.example.jessica.venus_match.sessions.SessionManager;
@@ -43,17 +46,6 @@ public class ShowProfileActivity extends Activity {
         // Make sure the toolbar exists in the activity and is not null
         //setSupportActionBar(toolbar);
 
-        /**Get edit profile intent */
-        Intent save_intent = getIntent();
-        //String about_message = save_intent.getStringExtra(Edit_Profile.update_about_desc);
-
-        /** Display about description */
-        TextView about = (TextView) findViewById(R.id.about);
-        //about.setText(about_message);
-
-        /** Get "get_profile" intent from menu */
-        Intent get_profile = getIntent();
-
         session.checkLoginStatus();
 
         String username = selectedUser.getUsername();
@@ -68,7 +60,7 @@ public class ShowProfileActivity extends Activity {
         TextView aboutText = (TextView) findViewById(R.id.about);
         ImageView profile_pic = (ImageView) findViewById(R.id.profile_pic);
         new DownloadImageTask(profile_pic).execute("http://54.66.210.220/venusmatch/images/profiles/"+selectedUser.getImageID());
-        int birthday = Integer.parseInt(age);
+
         tvusername.setText(username);
         if(age!=null) {
             tvage.setText(age);
@@ -81,6 +73,38 @@ public class ShowProfileActivity extends Activity {
         }
         if(aboutText!=null) {
             aboutText.setText(selectedUser.getAbout());
+        }
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /* Menu items */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dashboard:
+                Intent get_dashboard = new Intent(this,DashboardActivity.class);
+                startActivityForResult(get_dashboard, 0);
+                finish();
+                return true;
+            case R.id.user_profile:
+                Intent get_profile = new Intent(this,ProfileActivity.class);
+                startActivityForResult(get_profile, 1);
+                finish();
+                return true;
+            case R.id.sign_out:
+                session.logout();
+                Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

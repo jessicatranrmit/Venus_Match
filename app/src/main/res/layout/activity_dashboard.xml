@@ -27,14 +27,14 @@
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:columnWidth="100dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
         android:numColumns="auto_fit"
         android:stretchMode="spacingWidthUniform"
         android:verticalSpacing="24dp"
-        android:paddingTop="?attr/actionBarSize"
+        android:layout_marginTop="?attr/actionBarSize"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="38dp" />
 
